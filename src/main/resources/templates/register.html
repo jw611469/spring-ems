@@ -11,9 +11,11 @@
 	    <link href="css/templatemo-style.css" rel="stylesheet">
 	</head>
 	<body class="light-gray-bg">
-		<div th:if="${registered}" class="alert alert-danger alert-dismissible fade in w-80 my-10" role="alert">
-			<strong>Error</strong> Registration Failed!
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<div class="container">
+			<div id="alert-fail" class="alert alert-danger alert-dismissible fade in" role="alert" style="display: none;">
+				<strong>Error</strong> Registration Failed!
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			</div>
 		</div>
 		<div class="templatemo-content-widget templatemo-login-widget white-bg">
 			<header class="text-center">
@@ -46,5 +48,14 @@
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				const urlParams = new URLSearchParams(window.location.search);
+				const error = urlParams.get('error');
+				if (error == 'true') {
+					$("#alert-fail").show();
+				}
+			});
+		</script>
 	</body>
 </html>

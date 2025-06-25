@@ -40,11 +40,10 @@ public class EmsView {
             request.getParameter("password"),
             Employee.Role.USER
         );
-        model.addAttribute("registered", true);
         if(result){
-            return "login";
+            return "redirect:/login?register=true";
         }
-        return "register";
+        return "redirect:/register?error=true";
     }
 
 }

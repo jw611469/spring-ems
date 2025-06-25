@@ -132,38 +132,30 @@
       </div>
     </div>
     
-    <!-- JS -->
-    <script src="js/jquery-1.11.2.min.js"></script>      <!-- jQuery -->
-    <script src="js/jquery-migrate-1.2.1.min.js"></script> <!--  jQuery Migrate Plugin -->
-    <script src="https://www.google.com/jsapi"></script> <!-- Google Chart -->
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://www.google.com/jsapi"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script>
-      /* Google Chart 
-      -------------------------------------------------------------------*/
-      // Load the Visualization API and the piechart package.
       google.load('visualization', '1.0', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
       google.setOnLoadCallback(drawChart); 
       
 
       $(document).ready(function(){
         if($.browser.mozilla) {
-          //refresh page on browser resize
-          // http://www.sitepoint.com/jquery-refresh-page-browser-resize/
           $(window).bind('resize', function(e)
           {
             if (window.RT) clearTimeout(window.RT);
             window.RT = setTimeout(function()
             {
-              this.location.reload(false); /* false to get page from cache */
+              this.location.reload(false);
             }, 200);
           });      
         }  
       });
       
     </script>
-    <script type="text/javascript" src="js/templatemo-script.js"></script>      <!-- Templatemo Script -->
+    <script type="text/javascript" src="js/templatemo-script.js"></script>
     <script type="text/javascript" src="js/ems-index.js"></script>
   </body>
 </html>

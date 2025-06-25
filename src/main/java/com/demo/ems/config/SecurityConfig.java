@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
+                .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/index",true))
             .csrf(csrf->csrf.disable());
         return httpSecurity.build();
