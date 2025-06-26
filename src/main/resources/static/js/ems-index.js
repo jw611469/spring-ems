@@ -85,7 +85,17 @@ function updateCase(){
         row.append(td);
         td = $("<td></td>").text(item.status);
         row.append(td);
-        td = $("<td></td>").text(item.description);
+        const btn = $("<a class=\"templatemo-edit-btn\">View</a>");
+        btn.click(function(){
+          $("#modal-caseId").text("Case ID :"+item.caseId);
+          $("#modal-openTime").text(item.openTime);
+          $("#modal-customer").text(item.customer.name+" "+item.customer.telephone+" "+item.customer.mobile);
+          $("#modal-agent").text(item.username);
+          $("#modal-status").text(item.status);
+          $("#modal-description").text(item.description);
+          $("#modal-case").modal("show");
+        });
+        td = $("<td></td>").append(btn);
         row.append(td);
         $("#ems-case-content").append(row);
       });

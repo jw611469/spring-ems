@@ -28,6 +28,12 @@ public class SecurityConfig {
                 .passwordParameter("password")
                 .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/index",true))
+            .logout(logout->logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+            )
             .csrf(csrf->csrf.disable());
         return httpSecurity.build();
     }
