@@ -22,11 +22,6 @@ public class EmsView {
         return "login";
     }
 
-    @GetMapping("/index")
-    public String getIndexPage(){
-        return "index";
-    }
-
     @GetMapping("/register")
     public String getRegisterPage(){
         return "register";
@@ -44,6 +39,16 @@ public class EmsView {
             return "redirect:/login?register=true";
         }
         return "redirect:/register?error=true";
+    }
+
+    @GetMapping("/index")
+    public String getIndexPage(){
+        return "index";
+    }
+
+    @GetMapping("/manage-employee")
+    public String getManageEmployeePage(){
+        return "manage-employee";
     }
 
 }

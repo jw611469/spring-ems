@@ -3,18 +3,22 @@ package com.demo.ems.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.ems.entity.DemoCase;
+import com.demo.ems.entity.Employee;
 import com.demo.ems.service.AttendanceService;
 import com.demo.ems.service.CustomerService;
 import com.demo.ems.service.DemoCaseService;
 import com.demo.ems.service.EmployeeService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
 
 
 @RestController
@@ -52,6 +56,49 @@ public class EmsApi {
         }
     }
 
+    @PostMapping("/api/admin/update/password")
+    public void postUpdatePassword(HttpServletRequest request) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        employeeService.updatePassword(username, password);
+    }
+
+    @PostMapping("/api/admin/update/role")
+    public void postUpdateRole(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        try{
+            String username = request.getParameter("username");
+            String role = request.getParameter("role");
+            employeeService.updateRole(username, Employee.Role.valueOf(role.toUpperCase()));
+        }catch(Exception e){
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/api/admin/update/name")
+    public void postUpdateName(HttpServletRequest request) {
+        String username = request.getParameter("username");
+        String name = request.getParameter("name");
+        employeeService.updateName(username,name);
+    }
+
+    @PostMapping("/api/admin/update/employee")
+    public void postUpdateEmployee(HttpServletRequest request) {
+        String username = request.getParameter("username");
+        String name = request.getParameter("name");
+        String role = request.getParameter("role");
+        String password = request.getParameter("password");
+        employeeService.updateRole(username, Employee.Role.valueOf(role.toUpperCase()));
+        employeeService.updateName(username,name);
+        if(password!=null&&password!=""){
+            employeeService.updatePassword(username, password);
+        }
+    }
+    
+    @GetMapping("/api/admin/employee")
+    public EmsResponses getAllEmployee(Authentication authentication,HttpServletRequest request) {
+        return new EmsResponses(true, "success", employeeService.getEmployeeDTO());
+    }
+
     @PostMapping("employee/attendance")
     public void updateAttendance(Authentication authentication,HttpServletRequest request) {
         String username = authentication.getName();
@@ -65,7 +112,6 @@ public class EmsApi {
         String username = authentication.getName();
         String start = request.getParameter("start");
         String end = request.getParameter("end");
-        // return attendanceService.getAttendance(username, start, end);
         return new EmsResponses(true, "success", attendanceService.getAttendance(username, start, end));
     }
 
@@ -118,7 +164,6 @@ public class EmsApi {
                 demoCase.setStatus(DemoCase.Status.others);
                 break;
         }
-        System.out.println(demoCase.getCaseId());
         demoCaseService.addCase(demoCase);
     }
 

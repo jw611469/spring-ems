@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.demo.ems.entity.Employee;
+
 
 @Configuration
 @EnableWebSecurity
@@ -21,6 +23,8 @@ public class SecurityConfig {
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/static/**").permitAll()
                 .requestMatchers(HttpMethod.GET,"/login").permitAll()
                 .requestMatchers("/register").permitAll()
+                .requestMatchers("/api/admin/**").hasRole(Employee.Role.ADMIN.name())
+                .requestMatchers("/manage-employee").hasRole(Employee.Role.ADMIN.name())
                 .anyRequest().authenticated())
             .formLogin(form->form
                 .loginPage("/login")

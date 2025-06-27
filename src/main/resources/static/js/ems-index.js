@@ -2,7 +2,7 @@ $(document).ready(function(){
     InitDatePicker();
     updateAttendance();
     updateCase();
-    // ==========================================================
+    
     $("#attendance-save").click(function(){
       $.ajax({
         url:"/employee/attendance",
@@ -73,7 +73,6 @@ function updateCase(){
     type:"get",
     success:(res)=>{
       res.content.forEach(item => {
-        console.log(item);
         const row = $("<tr></tr>");
         let td = $("<td></td>").text(item.caseId);
         row.append(td);

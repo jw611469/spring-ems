@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
 
+import com.demo.ems.entity.Employee;
 import com.demo.ems.service.EmployeeService;
 
 
@@ -15,10 +17,18 @@ import com.demo.ems.service.EmployeeService;
 public class EmsEventListener {
 
     @Autowired
-    EmployeeService employeeService;
+    private Environment environment;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationReady() {
+        String admin = environment.getProperty("ems.admin.default.username");
+        String password = environment.getProperty("ems.admin.default.password");
+        if(employeeService.getEmployee("Administrator")==null){
+            employeeService.register("admin", admin, password, Employee.Role.ADMIN);
+        }
     }
 
     @EventListener(ContextClosedEvent.class)

@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "ems.admin.default.username",
+    "type": "java.lang.String",
+    "description": "A description for 'ems.admin.default.username'"
+  },
+  {
+    "name": "ems.admin.default.password",
+    "type": "java.lang.String",
+    "description": "A description for 'ems.admin.default.password'"
+  }
+]}

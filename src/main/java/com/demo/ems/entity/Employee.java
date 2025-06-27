@@ -68,8 +68,16 @@ public class Employee implements UserDetails{
         return lastLogin;
     }
 
+    public void setPassword(String password){
+        this.password = password;
+    }
+
     public void setRole(Role role){
         this.role = role;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 
     public void setLastLogin(LocalDateTime localDateTime){
@@ -80,7 +88,7 @@ public class Employee implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(this.role)
             .stream()
-            .map(role-> new SimpleGrantedAuthority(role.name()))
+            .map(role-> new SimpleGrantedAuthority("ROLE_"+role.name()))
             .collect(Collectors.toList());
     }
 
